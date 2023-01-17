@@ -9,13 +9,14 @@ root.title("Convertisseur de monnaie")
 root.geometry('400x300')
 
 # Liste des monnaies
-options = ["Euro", "Dollar"]
+options = ["EUR", "USD"]
 
 # Bouton/Menu currency1 = choix de la devise: soit euro ou dollar
 chooseCurrency1 = Label(root, text="Choisir la devise:")
 chooseCurrency1.grid(row=0, column=0, padx=40, pady=15)
 
 clicked = StringVar()
+clicked.set("EUR")
 currency1 = OptionMenu(root, clicked, *options)
 currency1.grid(row=1, column=0)
 currency1.config(bg="#0788D1")
@@ -30,8 +31,9 @@ nombre_valeur1.grid(row=3, column=0)
 choisirDevise2 = Label(root, text="Choisir la devise:")
 choisirDevise2.grid(row=0, column=1, padx=80)
 
-clicked = StringVar()
-currency2 = OptionMenu(root, clicked, *options)
+clicked2 = StringVar()
+clicked2.set("USD")
+currency2 = OptionMenu(root, clicked2, *options)
 currency2.grid(row=1, column=1)
 currency2.config(bg="#0788D1")
 
@@ -44,8 +46,18 @@ nombre_valeur2.config(state="disabled")
 
 # Fonction pour faire fonctionner la conversion
 def convert():
-    conversion = float(nombre_valeur1.get()) * 1.08
-    print(conversion)
+    if clicked.get() == "EUR" and clicked2.get() == "EUR":
+        print("Erreur ! Vous ne pouvez pas convertir EUR vers EUR.")
+    elif clicked.get() == "USD" and clicked2.get() == "USD":
+        print("Erreur ! Vous ne pouvez pas convertir USD vers USD.")
+    elif clicked.get() == "EUR" and clicked2.get() == "USD":
+        conversion = float(nombre_valeur1.get()) * 1.08 # Euro vers USD
+        round_conversion = round(conversion, 2)
+        print(round_conversion)
+    elif clicked.get() == "USD" and clicked2.get() == "EUR":
+        conversion = float(nombre_valeur1.get()) * 0.92 # USD vers Euro
+        round_conversion = round(conversion, 2) # Jusqu'à 2 décimales
+        print(round_conversion)
     # Faire une condition en fonction de si j'ai mis euro ou dollar pour multiplier par 1.08 (euro dollar) ou par 0.92 (dollar euro)
 
 # Bouton convertir qui donne le résultat

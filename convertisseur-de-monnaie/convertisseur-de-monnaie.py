@@ -73,8 +73,15 @@ def deleteValue1AndConverted():
 
 # Supprime l'historique
 def deleteHistory():
-    messagebox.askquestion("Confirmation","Voulez-vous supprimer l'historique ?")  
-    os.remove("historique_conversions.txt")
+    file_history = "./historique_conversions.txt"
+    answer = messagebox.askquestion("Confirmation","Voulez-vous supprimer l'historique ?")  
+    if answer == 'yes' and os.path.isfile(file_history) == True:
+        os.remove("historique_conversions.txt")
+        messagebox.showinfo("Information","Historique supprimé.")
+    elif answer == 'no':
+        messagebox.showinfo("Information","Historique non supprimé.")
+    elif answer == 'yes' and os.path.isfile(file_history) == False:
+        messagebox.showerror("Erreur","Le fichier auquel vous voulez accéder n'existe pas/plus.")
         
 # Le nombre une fois converti
 choisirDevise2 = Label(root, text="Valeur convertie:")
@@ -100,7 +107,7 @@ clear_values_button.grid(row=5, column=1, pady=10)
 clear_all_button = Button(root, text="Supprimer l'historique", bg="#FF1A1A", fg="white", command=deleteHistory)
 clear_all_button.grid(row=6, column=1, pady=10)
 
-# Historique des conversions faites.
+# Historique des conversions
 def history():
     file_history = "./historique_conversions.txt"
     if os.path.exists(file_history):

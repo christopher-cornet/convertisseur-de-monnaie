@@ -19,12 +19,13 @@ def add_new_currency():
     options.append(new_currency.get())
     messagebox.showinfo("Information","Devise ajoutée.")
     global exchange_rate_entry
-    currency1 = OptionMenu(root, clicked, *options)
+    currency1 = OptionMenu(root, clicked, *options, command=callback)
     currency1.grid(row=1, column=0)
     currency1.config(bg="#13A6FF")
-    currency2 = OptionMenu(root, clicked2, *options)
+    currency2 = OptionMenu(root, clicked2, *options, command=callback2)
     currency2.grid(row=1, column=1)
     currency2.config(bg="#13A6FF")
+    exchange_rate_entry = float(exchange_rate.get())
     print(options)
     print(exchange_rate_entry)
 
@@ -39,8 +40,6 @@ choose_exchange_rate.grid(row=8, column=0, padx=60, pady=15)
 
 exchange_rate = Entry(root, width=20)
 exchange_rate.grid(row=8, column=1)
-
-exchange_rate_entry = exchange_rate.get()
 
 # Bouton/Menu currency1 = choix de la devise: soit euro ou dollar
 chooseCurrency1 = Label(root, text="Choisir la devise:")
@@ -70,6 +69,13 @@ currency2 = OptionMenu(root, clicked2, *options)
 currency2.grid(row=1, column=1)
 currency2.config(bg="#13A6FF")
 
+def callback(selection):
+    print(selection)
+
+def callback2(selection):
+    print(selection)
+    return(selection)
+
 # Effectuer la conversion
 def convert():
     if clicked.get() == "EUR" and clicked2.get() == "EUR":
@@ -92,8 +98,54 @@ def convert():
         file_history = open("historique_conversions.txt", "a")
         file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
         file_history.close()
-    elif clicked.get() == "EUR" and clicked2.get() == exchange_rate_entry:
-        print("OK")
+    elif clicked.get() == "EUR" and callback2(new_currency):
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2) 
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
+    elif clicked.get() == "USD" and callback2(new_currency):
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2) 
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
+    elif clicked2.get() == "EUR" and callback(new_currency):
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2) 
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
+    elif clicked2.get() == "USD" and callback(new_currency):
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2)
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
+    elif callback(new_currency) and clicked2.get() == "EUR":
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2) 
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
+    elif callback(new_currency) and clicked2.get() == "USD":
+        conversion = float(nb_value1.get()) * float(exchange_rate_entry)
+        round_conversion = round(conversion, 2)
+        nb_converted.config(state="normal")
+        nb_converted.insert(0, round_conversion)
+        file_history = open("historique_conversions.txt", "a")
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.close()
 
 # Effacer la valeur convertie
 def delete():

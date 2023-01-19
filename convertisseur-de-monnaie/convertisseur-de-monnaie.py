@@ -104,7 +104,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {} {}\n".format(nb_value1.get(), new_currency, "en EUR =", round_conversion, "€"))
         file_history.close()
     elif clicked.get() == "USD" and callback2(new_currency):
         conversion = float(nb_value1.get()) * float(exchange_rate_entry)
@@ -112,7 +112,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {} {}\n".format(nb_value1.get(), new_currency, "en USD =", round_conversion, "$"))
         file_history.close()
     elif clicked2.get() == "EUR" and callback(new_currency):
         conversion = float(nb_value1.get()) * float(exchange_rate_entry)
@@ -120,7 +120,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {} {}\n".format(nb_value1.get(), "EUR en", new_currency, "=", round_conversion))
         file_history.close()
     elif clicked2.get() == "USD" and callback(new_currency):
         conversion = float(nb_value1.get()) * float(exchange_rate_entry)
@@ -128,7 +128,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {} {}\n".format(nb_value1.get(), "USD en", new_currency, "=", round_conversion))
         file_history.close()
     elif callback(new_currency) and clicked2.get() == "EUR":
         conversion = float(nb_value1.get()) * float(exchange_rate_entry)
@@ -136,7 +136,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {}\n".format(nb_value1.get(), new_currency, "en EUR =", round_conversion))
         file_history.close()
     elif callback(new_currency) and clicked2.get() == "USD":
         conversion = float(nb_value1.get()) * float(exchange_rate_entry)
@@ -144,7 +144,7 @@ def convert():
         nb_converted.config(state="normal")
         nb_converted.insert(0, round_conversion)
         file_history = open("historique_conversions.txt", "a")
-        file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
+        file_history.write("{} {} {} {} {}\n".format(nb_value1.get(), new_currency, "en USD =", round_conversion, "$"))
         file_history.close()
 
 # Effacer la valeur convertie

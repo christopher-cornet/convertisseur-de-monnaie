@@ -82,6 +82,10 @@ def convert():
         messagebox.showwarning("Erreur de conversion", "Erreur ! Vous ne pouvez pas convertir EUR en EUR.")
     elif clicked.get() == "USD" and clicked2.get() == "USD":
         messagebox.showwarning("Erreur de conversion", "Erreur ! Vous ne pouvez pas convertir USD en USD.")
+    elif callback(new_currency) and callback2(new_currency):
+        messagebox.showwarning("Erreur de conversion", "Erreur ! Vous ne pouvez pas convertir", new_currency, " en ", new_currency, ".")
+    elif callback2(new_currency) and callback(new_currency):
+        messagebox.showwarning("Erreur de conversion", "Erreur ! Vous ne pouvez pas convertir", new_currency, " en ", new_currency, ".")
     elif clicked.get() == "EUR" and clicked2.get() == "USD":
         conversion = float(nb_value1.get()) * 1.08 # Euro vers USD
         round_conversion = round(conversion, 2) # Jusqu'à 2 décimales

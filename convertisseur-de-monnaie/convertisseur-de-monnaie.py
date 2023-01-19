@@ -5,11 +5,42 @@ import os
 
 root = Tk()
 root.title("Convertisseur de monnaie - Christopher CORNET")
-root.geometry('450x300')
+root.geometry('550x400')
 root.iconbitmap('currency.ico')
 
-# Liste des monnaies
+new_currency = Entry(root, width=20)
+new_currency.grid(row=7, column=1, padx=80)
+
 options = ["EUR", "USD"]
+
+# Possibilité d'ajouter une devise et son taux de conversion
+def add_new_currency():
+    options = ["EUR", "USD"]
+    options.append(new_currency.get())
+    messagebox.showinfo("Information","Devise ajoutée.")
+    global exchange_rate_entry
+    currency1 = OptionMenu(root, clicked, *options)
+    currency1.grid(row=1, column=0)
+    currency1.config(bg="#13A6FF")
+    currency2 = OptionMenu(root, clicked2, *options)
+    currency2.grid(row=1, column=1)
+    currency2.config(bg="#13A6FF")
+    print(options)
+    print(exchange_rate_entry)
+
+currency_name = Label(root, text="Nom de la devise:")
+currency_name.grid(row=7, column=0, padx=60, pady=15)
+
+new_currency_button = Button(root, text="Ajouter une devise", bg="#53D317", fg="white", command=add_new_currency)
+new_currency_button.grid(row=6, column=0, pady=10)
+
+choose_exchange_rate = Label(root, text="Taux de conversion:")
+choose_exchange_rate.grid(row=8, column=0, padx=60, pady=15)
+
+exchange_rate = Entry(root, width=20)
+exchange_rate.grid(row=8, column=1)
+
+exchange_rate_entry = exchange_rate.get()
 
 # Bouton/Menu currency1 = choix de la devise: soit euro ou dollar
 chooseCurrency1 = Label(root, text="Choisir la devise:")
@@ -18,15 +49,15 @@ chooseCurrency1.grid(row=0, column=0, padx=60, pady=15)
 clicked = StringVar()
 clicked.set("EUR")
 
-currency1 = OptionMenu(root, clicked, *options)
-currency1.grid(row=1, column=0)
-currency1.config(bg="#0788D1")
- 
 chooseCurrency1 = Label(root, text="Valeur:")
 chooseCurrency1.grid(row=2, column=0, pady=10)
 
 nb_value1 = Entry(root, width=20)
 nb_value1.grid(row=3, column=0)
+
+currency1 = OptionMenu(root, clicked, *options)
+currency1.grid(row=1, column=0)
+currency1.config(bg="#13A6FF")
 
 # Bouton/Menu currency2 = choix de la devise: soit euro ou dollar
 choisirDevise2 = Label(root, text="Choisir la devise:")
@@ -37,7 +68,7 @@ clicked2.set("USD")
 
 currency2 = OptionMenu(root, clicked2, *options)
 currency2.grid(row=1, column=1)
-currency2.config(bg="#0788D1")
+currency2.config(bg="#13A6FF")
 
 # Effectuer la conversion
 def convert():
@@ -61,6 +92,8 @@ def convert():
         file_history = open("historique_conversions.txt", "a")
         file_history.write("{} {} {} {}\n".format(nb_value1.get(), "USD en EUR =", round_conversion, "€"))
         file_history.close()
+    elif clicked.get() == "EUR" and clicked2.get() == exchange_rate_entry:
+        print("OK")
 
 # Effacer la valeur convertie
 def delete():
